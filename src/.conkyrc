@@ -1,0 +1,80 @@
+-- Icons and colors
+memoryIcon = '';
+storageIcon = '';
+tempIcon = '';
+tuxIcon = '';
+bodyFont = 'Montserrat Regular';
+iconFont = 'FontAwesome';
+highlightColor = 'B08A49';
+
+-- Configuration
+conky.config = {
+    alignment = bottom_left,
+    background = true,
+    cpu_avg_samples = 3,
+    default_color = 'ffffff',
+    double_buffer = true,
+    draw_borders = no,
+    draw_graph_borders = no,
+    draw_outline = no,
+    draw_shades = no,
+    font = 'Montserrat Regular:pixelsize=10',
+    gap_x = 50,
+    gap_y = 50,
+    maximum_width = 200,
+    minimum_width = 190,
+    no_buffers = true,
+    override_utf8_locale = no,
+    own_window = true,
+    own_window_argb_visual = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_transparent = true,
+    own_window_type = desktop,
+    total_run_times = 0,
+    update_interval = 1.0,
+    uppercase = no,
+    use_xft = true,
+    xftalpha = 1
+};
+
+-- CPU load for individual cores
+cpuLoad = [[
+core 01 ${offset 18}${color ]]..highlightColor..[[}${cpubar cpu1 5,90}${alignr}${color}${cpu cpu1}%${voffset 3}
+core 02 ${offset 18}${color ]]..highlightColor..[[}${cpubar cpu2 5,90}${alignr}${color}${cpu cpu2}%${voffset 3}
+core 03 ${offset 18}${color ]]..highlightColor..[[}${cpubar cpu3 5,90}${alignr}${color}${cpu cpu3}%${voffset 3}
+core 04 ${offset 18}${color ]]..highlightColor..[[}${cpubar cpu4 5,90}${alignr}${color}${cpu cpu4}%
+]]
+
+-- Process information
+processes = [[
+${voffset 6}1. ${top_mem name 1}${alignr}${top_mem cpu 1}% ${top_mem mem_res 1}
+${voffset 4}2. ${top_mem name 2}${alignr}${top_mem cpu 2}% ${top_mem mem_res 2}
+${voffset 4}3. ${top_mem name 3}${alignr}${top_mem cpu 3}% ${top_mem mem_res 3}
+]]
+
+-- Content with concenated variables
+conky.text = [[
+${voffset 50}
+${image ~/.conky/triangle.png -s 60x60 -p 77,0}
+${font ]]..iconFont..[[:pixelsize=50}]]
+..tuxIcon..
+[[${font}${voffset -35}${offset 9}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}KERNEL${color}${font}${alignr}${kernel}
+${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}UPTIME${color}${font}${alignr}${uptime}
+${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}UPDATES${color}${font}${alignr}${execi 600 pacaur -Qu | wc -l} new
+${voffset 24}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}CPU${color}${font}${alignr}${execi 10 sensors | grep CPUTIN | awk '{print $2}' | sed 's/+//g'}  ${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
+..tempIcon..
+[[${font}${color}
+${voffset 6}]]
+..cpuLoad..
+[[
+${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}Memory${color}${font}
+${voffset 6}${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
+..memoryIcon..
+[[${font}${color}   RAM ${offset 15}${color ]]..highlightColor..[[}${membar 5,90}${color}${alignr}${memperc}%
+${voffset 6}${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
+..storageIcon..
+[[${font}${color}  swap ${offset 13}${color ]]..highlightColor..[[}${swapbar 5,90}${color}${alignr}${swapperc}%
+${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}Top processes${color}${font}
+]]
+..processes..
+[[]]
