@@ -26,8 +26,7 @@ The configuration features an update counter using Pacaur. If you want to use pa
 ${execi 600 pacaur -Qu | wc -l}`
 
 ### Number of CPU cores
-The default setup is for a CPU with four cores. For a different setup, remove or add individual CPU bars. They start with this line:
-`${voffset 6}core 01 ${offset 18}${color B08A49}${cpubar cpu1 5,90}${alignr}${color}${cpu cpu1}%`
+The default setup is for a CPU with four cores. For a different setup, remove or add individual CPU bars as needed. They are part of a text block in the `cpuLoad` variable.
 
 ### Light background
 Change `default_color = 'ffffff'` to a darker color.
