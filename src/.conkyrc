@@ -1,5 +1,6 @@
 -- Icons and colors
 memoryIcon = '';
+musicIcon = '';
 storageIcon = '';
 tempIcon = '';
 tuxIcon = '';
@@ -19,10 +20,10 @@ conky.config = {
     draw_outline = no,
     draw_shades = no,
     font = 'Montserrat Regular:pixelsize=10',
-    gap_x = 50,
-    gap_y = 50,
-    maximum_width = 200,
-    minimum_width = 190,
+    gap_x = 40,
+    gap_y = -1000,
+    maximum_width = 220,
+    minimum_width = 220,
     no_buffers = true,
     override_utf8_locale = no,
     own_window = true,
@@ -54,27 +55,35 @@ ${voffset 4}3. ${top_mem name 3}${alignr}${top_mem cpu 3}% ${top_mem mem_res 3}
 
 -- Content with concenated variables
 conky.text = [[
-${voffset 50}
-${image ~/.conky/triangle.png -s 60x60 -p 77,0}
+${voffset 45}
+${image ~/.conky/triangle.png -s 60x48 -p 97,0}
 ${font ]]..iconFont..[[:pixelsize=50}]]
 ..tuxIcon..
-[[${font}${voffset -35}${offset 9}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}KERNEL${color}${font}${alignr}${kernel}
-${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}UPTIME${color}${font}${alignr}${uptime}
-${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}UPDATES${color}${font}${alignr}${execi 600 pacaur -Qu | wc -l} new
-${voffset 24}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}CPU${color}${font}${alignr}${execi 10 sensors | grep CPUTIN | awk '{print $2}' | sed 's/+//g'}  ${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
+[[${font}${voffset -35}${offset 9}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}kernel${color}${font}${alignr}${kernel}
+${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}uptime${color}${font}${alignr}${uptime}
+${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}updates${color}${font}${alignr}${execi 600 pacaur -Qu | wc -l} new
+${voffset 24}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}cpu${color}${font}${alignr}${execi 10 sensors | grep 'Physical id 0' | awk '{print $4}' | sed 's/+//g'}  ${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
 ..tempIcon..
 [[${font}${color}
 ${voffset 6}]]
 ..cpuLoad..
 [[
-${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}Memory${color}${font}
+${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}memory${color}${font}
 ${voffset 6}${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
 ..memoryIcon..
 [[${font}${color}   RAM ${offset 15}${color ]]..highlightColor..[[}${membar 5,90}${color}${alignr}${memperc}%
 ${voffset 6}${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
 ..storageIcon..
 [[${font}${color}  swap ${offset 13}${color ]]..highlightColor..[[}${swapbar 5,90}${color}${alignr}${swapperc}%
-${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}Top processes${color}${font}
+${voffset 18}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}top processes${color}${font}
 ]]
 ..processes..
-[[]]
+[[
+${voffset 18}${font ]]..iconFont..[[:pixelsize=12}]]
+..musicIcon..
+[[${font}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}  now playing${color}${font}
+${voffset 8}${execi 5 qdbus org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Metadata | egrep "^(xesam:artist|xesam:title)" | sed -e "s/^.*: //g" | sed -e ':a;N;$!ba;s/\n/ – /g'}
+${voffset 20}${alignc}${font :pixelsize=32}${time %H:%M}${font}
+${voffset 8}${alignc}${font :pixelsize=12}${time %d. %B}${font}
+${voffset 20}
+]]
