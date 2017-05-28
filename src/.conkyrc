@@ -20,7 +20,7 @@ conky.config = {
     draw_outline = no,
     draw_shades = no,
     font = 'Montserrat Regular:pixelsize=10',
-    gap_x = 40,
+    gap_x = 150,
     gap_y = -1000,
     maximum_width = 220,
     minimum_width = 220,
@@ -56,13 +56,13 @@ ${voffset 4}3. ${top_mem name 3}${alignr}${top_mem cpu 3}% ${top_mem mem_res 3}
 -- Content with concenated variables
 conky.text = [[
 ${voffset 45}
-${image ~/.conky/triangle.png -s 60x48 -p 97,0}
+${image ~/.conky/triangle.png -s 60x48 -p 87,0}
 ${font ]]..iconFont..[[:pixelsize=50}]]
 ..tuxIcon..
 [[${font}${voffset -35}${offset 9}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}kernel${color}${font}${alignr}${kernel}
 ${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}uptime${color}${font}${alignr}${uptime}
 ${voffset 3}${offset 52}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}updates${color}${font}${alignr}${execi 600 pacaur -Qu | wc -l} new
-${voffset 24}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}cpu${color}${font}${alignr}${execi 10 sensors | grep 'Physical id 0' | awk '{print $4}' | sed 's/+//g'}  ${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
+${voffset 24}${font ]]..bodyFont..[[:bold:pixelsize=10}${color ]]..highlightColor..[[}cpu${color}${font}${alignr}${execi 10 sensors | grep 'Package id 0' | awk '{print $4}' | sed 's/+//g'}  ${color ]]..highlightColor..[[}${font ]]..iconFont..[[:pixelsize=12}]]
 ..tempIcon..
 [[${font}${color}
 ${voffset 6}]]
